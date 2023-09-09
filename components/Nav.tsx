@@ -10,13 +10,9 @@ function Nav() {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const { data: session } = useSession();
 
-  console.log({ session });
-
   useEffect(() => {
     async function loadProviders() {
-      performance.mark('teste');
       const response = await getProviders();
-      console.log(performance.measure('teste').duration);
       setProviders(response);
     }
 

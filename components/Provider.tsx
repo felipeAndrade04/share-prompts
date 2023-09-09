@@ -6,10 +6,11 @@ import { Session } from 'next-auth';
 
 interface ProviderProps {
   children: ReactNode;
+  session: Session;
 }
 
-function Provider({ children }: ProviderProps) {
-  return <SessionProvider>{children}</SessionProvider>;
+function Provider({ children, session }: ProviderProps) {
+  return <SessionProvider session={session}>{children}</SessionProvider>;
 }
 
 export default Provider;

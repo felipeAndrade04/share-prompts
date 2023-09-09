@@ -1,9 +1,9 @@
 import { connectToDB } from '@utils/database';
-import NextAuth from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import User from '@models/user';
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -26,7 +26,9 @@ const handler = NextAuth({
       if (!profile) return false;
 
       try {
+        performance.mark('connectToDB');
         await connectToDB();
+        console.log('connectToDB', performance.measure('connectToDB').duration);
 
         const useExists = await User.findOne({ email: profile.email });
 
@@ -45,6 +47,8 @@ const handler = NextAuth({
       }
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import '@styles/global.css';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/route';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -11,15 +13,17 @@ export const metadata: Metadata = {
   description: 'Discover & Share AI Prompts',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <Provider>
+        <Provider session={session!}>
           <div className='main'>
             <div className='gradient' />
           </div>
