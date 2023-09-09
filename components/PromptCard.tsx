@@ -8,11 +8,21 @@ import { PromptType } from '@models/prompt';
 
 interface PromptCardProps {
   post: PromptType;
-  handleTagClick: (tag: string) => void;
+  handleTagClick?: (tag: string) => void;
+  handleEdit?: (prompt: PromptType) => void;
+  handleDelite?: (prompt: PromptType) => void;
 }
 
-function PromptCard({ post, handleTagClick }: PromptCardProps) {
+function PromptCard({
+  post,
+  handleTagClick,
+  handleEdit,
+  handleDelite,
+}: PromptCardProps) {
   const [copied, setCopied] = useState('');
+  const { data: session } = useSession();
+  const pathName = usePathname();
+  const router = useRouter();
 
   function handleCopy() {
     setCopied(post.prompt);
@@ -60,11 +70,28 @@ function PromptCard({ post, handleTagClick }: PromptCardProps) {
 
       <p className='my-4 font-satoshi text-sm text-gray-700'>{post.prompt}</p>
       <p
-        onClick={() => handleTagClick(post.tag)}
+        onClick={() => handleTagClick && handleTagClick(post.tag)}
         className='font-inter text-sm blue_gradient cursor-pointer'
       >
         {post.tag}
       </p>
+
+      {session?.user.id === post.creator._id && pathName === '/profile' && (
+        <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
+          <p
+            className='font-inter text-sm green_gradient cursor-pointer'
+            onClick={() => handleEdit && handleEdit(post)}
+          >
+            Edit
+          </p>
+          <p
+            className='font-inter text-sm orange_gradient cursor-pointer'
+            onClick={() => handleDelite && handleDelite(post)}
+          >
+            Delite
+          </p>
+        </div>
+      )}
     </div>
   );
 }

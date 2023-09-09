@@ -3,10 +3,17 @@ import PromptCard from './PromptCard';
 
 interface PromptCardListProps {
   data: PromptType[];
-  handleTagClick: () => void;
+  handleTagClick?: () => void;
+  handleEdit?: (prompt: PromptType) => void;
+  handleDelite?: (prompt: PromptType) => void;
 }
 
-function PromptCardList({ data, handleTagClick }: PromptCardListProps) {
+function PromptCardList({
+  data,
+  handleTagClick,
+  handleDelite,
+  handleEdit,
+}: PromptCardListProps) {
   return (
     <div className='mt-16 prompt_layout'>
       {data.map((post) => (
@@ -14,6 +21,8 @@ function PromptCardList({ data, handleTagClick }: PromptCardListProps) {
           key={post._id.toString()}
           post={post}
           handleTagClick={handleTagClick}
+          handleDelite={handleDelite}
+          handleEdit={handleEdit}
         />
       ))}
     </div>
