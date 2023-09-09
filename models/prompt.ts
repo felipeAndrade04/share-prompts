@@ -1,5 +1,17 @@
 import { Model, Schema, model, models } from 'mongoose';
 
+export interface PromptType {
+  _id: string;
+  creator: {
+    _id: string;
+    username: string;
+    email: string;
+    image: string;
+  };
+  prompt: string;
+  tag: string;
+}
+
 export interface IPrompt {
   creator: Schema.Types.ObjectId;
   prompt: string;

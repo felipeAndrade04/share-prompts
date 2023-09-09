@@ -26,9 +26,7 @@ export const authOptions: AuthOptions = {
       if (!profile) return false;
 
       try {
-        performance.mark('connectToDB');
         await connectToDB();
-        console.log('connectToDB', performance.measure('connectToDB').duration);
 
         const useExists = await User.findOne({ email: profile.email });
 
@@ -36,7 +34,7 @@ export const authOptions: AuthOptions = {
           await User.create({
             email: profile.email,
             username: profile.name?.replace(' ', '').toLowerCase(),
-            image: profile.image,
+            image: profile.picture,
           });
         }
 
