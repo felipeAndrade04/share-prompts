@@ -5,13 +5,13 @@ interface PromptCardListProps {
   data: PromptType[];
   handleTagClick?: () => void;
   handleEdit?: (prompt: PromptType) => void;
-  handleDelite?: (prompt: PromptType) => void;
+  handleDelete?: (prompt: PromptType) => void;
 }
 
 function PromptCardList({
   data,
   handleTagClick,
-  handleDelite,
+  handleDelete,
   handleEdit,
 }: PromptCardListProps) {
   return (
@@ -21,7 +21,7 @@ function PromptCardList({
           key={post._id.toString()}
           post={post}
           handleTagClick={handleTagClick}
-          handleDelite={handleDelite}
+          handleDelete={handleDelete}
           handleEdit={handleEdit}
         />
       ))}

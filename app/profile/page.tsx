@@ -8,6 +8,7 @@ import { PromptType } from '@models/prompt';
 
 function ProfilePage() {
   const [posts, setPosts] = useState<PromptType[]>([]);
+  const router = useRouter();
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -21,9 +22,29 @@ function ProfilePage() {
     if (session?.user.id) loadPosts();
   }, []);
 
-  function handleEdit() {}
+  function handleEdit(prompt: PromptType) {
+    router.push(`update-prompt?id=${prompt._id}`);
+  }
 
-  async function handleDelete() {}
+  async function handleDelete(prompt: PromptType) {
+    const hasConfirmed = confirm(
+      'Are you sure you want to delete this prompt?'
+    );
+
+    if (hasConfirmed) {
+      try {
+        await fetch(`/api/prompt/${prompt._id}`, {
+          method: 'DELETE',
+        });
+
+        const filteredPosts = posts.filter((post) => post._id !== prompt._id);
+
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
   return (
     <Profile

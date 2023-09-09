@@ -5,8 +5,8 @@ interface ProfileProps {
   name: string;
   description: string;
   data: PromptType[];
-  handleEdit: () => void;
-  handleDelete: () => void;
+  handleEdit?: (prompt: PromptType) => void;
+  handleDelete?: (prompt: PromptType) => void;
 }
 
 function Profile({
@@ -26,7 +26,7 @@ function Profile({
       <PromptCardList
         data={data}
         handleEdit={handleEdit}
-        handleDelite={handleDelete}
+        handleDelete={handleDelete}
       />
     </section>
   );

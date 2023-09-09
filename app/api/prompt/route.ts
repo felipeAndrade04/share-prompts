@@ -4,7 +4,7 @@ import Prompt, { PromptType } from '@models/prompt';
 
 export async function GET(
   req: NextRequest
-): Promise<NextResponse<PromptType> | string> {
+): Promise<NextResponse<PromptType[] | string>> {
   try {
     await connectToDB();
 

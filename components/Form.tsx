@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react';
 
 interface FormProps {
-  type: 'Create' | 'Update';
+  type: 'Create' | 'Edit';
   post: Post;
   submitting: boolean;
   setPost: Dispatch<SetStateAction<Post>>;

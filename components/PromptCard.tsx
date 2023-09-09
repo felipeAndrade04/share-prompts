@@ -10,14 +10,14 @@ interface PromptCardProps {
   post: PromptType;
   handleTagClick?: (tag: string) => void;
   handleEdit?: (prompt: PromptType) => void;
-  handleDelite?: (prompt: PromptType) => void;
+  handleDelete?: (prompt: PromptType) => void;
 }
 
 function PromptCard({
   post,
   handleTagClick,
   handleEdit,
-  handleDelite,
+  handleDelete,
 }: PromptCardProps) {
   const [copied, setCopied] = useState('');
   const { data: session } = useSession();
@@ -86,7 +86,7 @@ function PromptCard({
           </p>
           <p
             className='font-inter text-sm orange_gradient cursor-pointer'
-            onClick={() => handleDelite && handleDelite(post)}
+            onClick={() => handleDelete && handleDelete(post)}
           >
             Delite
           </p>
