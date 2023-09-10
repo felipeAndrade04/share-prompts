@@ -12,6 +12,8 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async session({ session }) {
+      await connectToDB();
+
       const sessionUser = await User.findOne({
         email: session.user?.email,
       });
@@ -24,6 +26,7 @@ export const authOptions: AuthOptions = {
     },
     async signIn({ profile }) {
       if (!profile) return false;
+      console.log(profile);
 
       try {
         await connectToDB();
